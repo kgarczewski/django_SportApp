@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %} Usun Post {% endblock %}
+{% block body %}
+
+
+    <h3>Czy chcesz usunac {{ post.title }}?</h3>
+    <br/>
+    <form method="post">
+                       {% csrf_token %}
+        <strong>Czy jestes pewien?!</strong><br/>
+        <button class="btn btn-secondary">Usun Post!</button>
+    </form>
+
+     {%endblock%}

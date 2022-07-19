@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %} Usun grupe {% endblock %}
+{% block body %}
+
+
+    <br/><br>
+    <h3>Zamierzasz usunac grupe {{ group.name }}</h3>
+    <br/>
+    <form method="post">
+                       {% csrf_token %}
+        <strong>Czy jestes pewien?!</strong><br/>
+        <button class="btn btn-secondary">Usun grupe!</button>
+    </form>
+
+     {%endblock%}

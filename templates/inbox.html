@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block body %}<br>
+{#   <h1>Skrzynka odbiorcza:<h1>#}
+{#    {% for message in messages_in %}#}
+{#     <h2>{{ message.subject }}</h2><br>#}
+{#   #}
+{#    {{ message.sender }}<a href="/send_message/{{ message.sender.id }}">Odpowiedz</a><br>#}
+{#    {{ message.date_sent }}#}
+{#        {% if user.id == message.receiver.id %}<a href="/delete_message/{{ message.id }}">Usun wiadomosc</a>{% endif %}#}
+{#    {% endfor %}<br>#}
+{#div class="row">#}
+    <h4>Skrzynka odbiorcza</h4>
+{% for message in messages_in %}
+<div class="col s12 m6">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+            <span class="card-title"><br></span>
+            <p>{{ message.subject }}</p>
+             <p><h4>{{ message.content}}</h4><br></p>
+            <p> {{ message.sender }}<a href="/send_message/{{ message.sender.id }}">&emsp;Odpowiedz</a><br></p>
+            <p>{{ message.date_sent }}</p>
+        </div>
+        <div class="card-action">
+             {% if user.id == message.receiver.id %}
+                 <a href="/delete_message/{{ message.id }}">Usun wiadomosc</a>
+            {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+          {% endfor %}
+
+{#    <h1>Skrzynka nadawcza:<h1>#}
+{#    {% for message in messages_out %}#}
+{#     <h2>{{ message.subject }}</h2><br>#}
+{#    <h3>{{ message.content}}</h3><br>#}
+{#    {{ message.receiver }}<a href="/send_message/{{ message.receiver.id }}">Wyslij kolejna</a><br>#}
+{#    {{ message.date_sent }}#}
+{#        {% if user.id == message.sender.id %}<a href="/delete_message/{{ message.id }}">Usun wiadomosc</a>{% endif %}#}
+{##}
+{#    {% endfor %}#}
+    <h4>Skrzynka nadawcza</h4>
+{% for message in messages_out %}
+<div class="col s12 m6">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+             <span class="card-title"><br></span>
+            <p>{{ message.subject }}</p>
+             <p><h4>{{ message.content}}</h4><br></p>
+            <p> {{ message.receiver }}<a href="/send_message/{{ message.receiver.id }}">&emsp;Wyslij kolejna</a><br></p>
+            <p>{{ message.date_sent }}</p>
+        </div>
+        <div class="card-action">
+             {% if user.id == message.sender.id %}
+                 <a href="/delete_message/{{ message.id }}">Usun wiadomosc</a>
+            {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+    {% endfor %}
+
+     {%endblock%}

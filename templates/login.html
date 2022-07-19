@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% block body %}
+
+    <div id="content-container" class="container p-none">
+        <div class="lgn-container col-lg-8">
+            <form  method="post">
+                    {% if messages %}
+        {% for message in messages %}
+        <div class={{ message.tags }}>{{ message }}</div>
+                    {% endfor %}
+                     {% endif %}
+
+                {% csrf_token %}
+                <table class="table">
+                    <tr>
+                        <td><label for="username">Username</label></td>
+                        <td><input id="username" name="username"
+                                   type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="password">Password</label></td>
+                        <td><input id="password" name="password"
+                                   type="password" class="form-control"></td>
+                    </tr>
+                </table>
+
+
+
+                <input type="submit" value="Login"
+                       class="btn btn-primary pull-right" />
+
+            </form>
+        </div>
+    </div>
+{% endblock %}
+

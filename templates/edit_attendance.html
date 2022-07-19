@@ -1,0 +1,8 @@
+<form method="post">
+                       {% csrf_token %}
+
+{{ form.as_p }}
+
+    Czy na pewno chcesz opuscic wydarzenie?
+    <input type="submit" value="Potwierdz">
+</form>
