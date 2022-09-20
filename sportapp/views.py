@@ -77,6 +77,7 @@ class DeleteProfile(LoginRequiredMixin, DeleteView):
 
 
 class ProfilePage(LoginRequiredMixin, DetailView):
+    """ Displays user's details. """
     model = UserProfile
     template_name = 'user_profile.html'
 
@@ -88,6 +89,7 @@ class ProfilePage(LoginRequiredMixin, DetailView):
 
 
 class PostsPage(LoginRequiredMixin, ListView):
+    """ Shows all active posts """
     model = Post
     template_name = 'posts_view.html'
     context_object_name = 'posts'
@@ -108,6 +110,7 @@ class PostDetail(LoginRequiredMixin, DetailView):
 
 
 class AddPost(LoginRequiredMixin, CreateView):
+    """ Renders form which enables user to create post."""
     model = Post
     template_name = 'addpost.html'
     fields = ('title', 'sport', 'accepted_levels', 'content')
@@ -119,6 +122,7 @@ class AddPost(LoginRequiredMixin, CreateView):
 
 
 class EditPost(LoginRequiredMixin, UpdateView):
+    """Enables users to edit their own post"""
     model = Post
     template_name = 'edit_post.html'
     fields = ('title', 'content', 'sport', 'accepted_levels')
@@ -126,12 +130,14 @@ class EditPost(LoginRequiredMixin, UpdateView):
 
 
 class DeletePost(LoginRequiredMixin, DeleteView):
+    """Enables users to delete their own post"""
     model = Post
     template_name = 'delete_post.html'
     success_url = '/posts'
 
 
 class AddEvent(LoginRequiredMixin, CreateView):
+    """ Renders form which enables user to create event"""
     model = Event
     template_name = 'add_event.html'
     fields = ('title', 'number_of_players', 'location', 'start', 'end', 'price', 'content', 'sport')
@@ -143,6 +149,7 @@ class AddEvent(LoginRequiredMixin, CreateView):
 
 
 class EditEvent(LoginRequiredMixin, UpdateView):
+    """Enables users to edit their own even"""
     model = Event
     template_name = 'edit_event.html'
     fields = ('title', 'number_of_players', 'location', 'start', 'end', 'price', 'content', 'sport')
@@ -154,12 +161,14 @@ class EditEvent(LoginRequiredMixin, UpdateView):
 
 
 class EventPage(LoginRequiredMixin, ListView):
+    """Renders page with active events"""
     model = Event
     template_name = 'events_page.html'
     context_object_name = 'events'
 
 
 class DeleteEvent(LoginRequiredMixin, DeleteView):
+    """Enables users to delete their own event"""
     model = Event
     template_name = 'delete_event.html'
     success_url = '/events'
