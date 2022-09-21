@@ -9,11 +9,11 @@
             <span class="card-title">{{ user.username }}<br></span>
             <p><{{ user }} {{ user.first_name }}{{ user.last_name }}</p>
           O mnie:
-            <p> {{ user.bio}}</p>
-            <p>Miejsce zamieszkania:{{ user.city }}</p>
-            <p>Ulubione dyscypliny: {{ user.get_sports }}</p>
-            <p>Wiek: {{ user.age }}</p>
-        <p>Poziom: {{  user.get_levels }}</p>
+            <p> {{ page_user.bio}}</p>
+            <p>Miejsce zamieszkania:{{ page_user.city }}</p>
+            <p>Ulubione dyscypliny: {{ page_user.get_sports }}</p>
+            <p>Wiek: {{ page_user.age }}</p>
+        <p>Poziom: {{  page_user.get_levels }}</p>
 
         </div>
         <div class="card-action">

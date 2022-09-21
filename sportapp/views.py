@@ -16,11 +16,14 @@ class Home(View):
         user = UserProfile.objects.get(user=request.user)
         message = Message.objects.filter(receiver=request.user).count()
         random.shuffle(posts)
+
         return render(request, "home.html", {'posts': posts, 'events': events, 'user': user, 'message':message})
 
 
 class Home2(View):
     def get(self, request):
+        if self.request.user.is_authenticated:
+            return redirect('home')
         return render(request, "home2.html")
 
 
@@ -95,7 +98,8 @@ class ProfilePage(LoginRequiredMixin, View):
 
     def get(self, request):
         message = Message.objects.filter(receiver=request.user).count()
-        return render(request, 'user_profile.html', {'message':message})
+        page_user = UserProfile.objects.get(user = request.user.id)
+        return render(request, 'user_profile.html', {'message':message, 'page_user':page_user})
 
 class PostsPage(LoginRequiredMixin, ListView):
     """ Shows all active posts """
