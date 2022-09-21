@@ -2,7 +2,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.views import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
-from .forms import CreateUserForm, CommentForm, EventAttendanceForm
+from .forms import CreateUserForm, CommentForm, EventAttendanceForm, CreateEvent
 from .models import UserProfile, Post, Event, Comment, EventAttendance, Message, Group
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
@@ -14,7 +14,7 @@ class Home(View):
         posts = list(Post.objects.all())
         events = list(Event.objects.all())
         user = UserProfile.objects.get(user=request.user)
-        message = Message.objects.all
+        message = Message.objects.filter(receiver=request.user).count()
         random.shuffle(posts)
         return render(request, "home.html", {'posts': posts, 'events': events, 'user': user, 'message':message})
 
@@ -76,17 +76,26 @@ class DeleteProfile(LoginRequiredMixin, DeleteView):
     success_url = '/'
 
 
-class ProfilePage(LoginRequiredMixin, DetailView):
-    """ Displays user's details. """
-    model = UserProfile
-    template_name = 'user_profile.html'
+# class ProfilePage(LoginRequiredMixin, DetailView):
+#     """ Displays user's details. """
+#     model = UserProfile
+#     template_name = 'user_profile.html'
+#
+#     def get_context_data(self, *args, **kwargs):
+#         context = super(ProfilePage, self).get_context_data(*args, **kwargs)
+#         page_user = get_object_or_404(UserProfile, id=self.kwargs['pk'])
+#         context['page_user'] = page_user
+#         return context
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(ProfilePage, self).get_context_data(*args, **kwargs)
-        page_user = get_object_or_404(UserProfile, id=self.kwargs['pk'])
-        context['page_user'] = page_user
-        return context
+class ProfilePage(LoginRequiredMixin, View):
+    """
+    Displays user profile with details information.
+    """
+    login_url = '/login/'
 
+    def get(self, request):
+        message = Message.objects.filter(receiver=request.user).count()
+        return render(request, 'user_profile.html', {'message':message})
 
 class PostsPage(LoginRequiredMixin, ListView):
     """ Shows all active posts """
@@ -140,12 +149,17 @@ class AddEvent(LoginRequiredMixin, CreateView):
     """ Renders form which enables user to create event"""
     model = Event
     template_name = 'add_event.html'
-    fields = ('title', 'number_of_players', 'location', 'start', 'end', 'price', 'content', 'sport')
+    form_class = CreateEvent
     success_url = '/events'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        if form.cleaned_data.get('start') > form.cleaned_data.get('end'):
+            form.add_error('start', 'Wprowadz poprawna date!')
+            return self.form_invalid(form)
         return super().form_valid(form)
+
+
 
 
 class EditEvent(LoginRequiredMixin, UpdateView):

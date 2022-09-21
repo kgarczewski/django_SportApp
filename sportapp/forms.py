@@ -1,7 +1,10 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import UserProfile, Sports, Levels, Comment, EventAttendance, Message
+from .models import UserProfile, Sports, Levels, Comment, EventAttendance, Message, Event
+from flatpickr import DatePickerInput, TimePickerInput, DateTimePickerInput
+from django.forms import ModelForm
+import time
 
 
 class CreateUserForm(UserCreationForm):
@@ -38,17 +41,24 @@ class CreatePost(forms.Form):
     )
     content = forms.CharField(widget=forms.Textarea)
 
+class DateInput(forms.DateTimeInput):
+    input_type = 'datetime'
 
-class CreateEvent(forms.Form):
-    title = forms.CharField(label='Tytul')
-    number_of_players = forms.IntegerField(label='Ilosc graczy')
-    location = forms.CharField(label='Miejsce')
-    start = forms.DateField(
-        widget=forms.widgets.DateInput(attrs={'type': 'date'})
-    )
-    end = forms.DateField()
-    price = forms.IntegerField(label='Cena')
-    content = forms.CharField(widget=forms.Textarea)
+
+class CreateEvent(ModelForm):
+
+    class Meta:
+        model = Event
+        fields = ['title', 'number_of_players', 'location', 'start', 'end', 'price', 'content', 'sport']
+        widgets = {
+            'start' : DateTimePickerInput(),
+            'end' : DateTimePickerInput(),
+
+        }
+
+
+
+
 
 
 class CommentForm(forms.ModelForm):

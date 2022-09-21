@@ -10,7 +10,8 @@
 
 <form  method="post">
                        {% csrf_token %}
-
+{{ form.errors }}
+{{ form.media }}
 {{ form.as_p }}
 
     <button type="submit" class="waves-effect waves light btn-large">Opublikuj</button>

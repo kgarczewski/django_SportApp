@@ -20,9 +20,9 @@
     </a>
      <ul id="nav-mobile" class="left hide-on-med-and-down">
            {% if request.user.is_authenticated %}
-     <li><a href="/profile/{{user.id}}">Moj profil</a></li>
-               <li><a href="/inbox/">Wiadomosci ({{ message.count }})</a></li>
-               <li><a href="/logout">Wyloguj</a></li>
+     <li><a href="{% url 'profile' %}">Moj profil</a></li>
+               <li><a href="{% url 'inbox' %}">Wiadomosci ({{ message }})</a></li>
+               <li><a href="{% url 'logout' %}">Wyloguj</a></li>
 
      {% endif %}
      </ul>
