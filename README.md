@@ -1,13 +1,17 @@
 # SportApp
 Django SportApp is an on-line service through which people can find partners to play sports with.
 
-Features:
-- Post section to create and edit a post
-- Event section to create and edit an event
-- Comment section to create and edit a comment
-- Message section to create messages
-- Group section to create group
-- Display the list of active Posts
-- Display the list of active Events
-- Display the list of groups
-- Used PostgreSql to create DB
+Site acces features:
+- User must be logged in to use an app
+- For signup user is required to give username and password
+- For login the user will be required to enter email and password only
+ 
+ Features (for logged user):
+- Users can create and edit their posts
+- User can define 
+- Users can create and edit their events
+- User can join to active events, and edit attendance
+- Comment section to create comments to events
+- Messaging system helps users to stay in touch
+- Group section allows users to create groups - which improves comunnication
+
